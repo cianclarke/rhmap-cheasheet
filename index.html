@@ -1,0 +1,489 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css"><title>RHMAP Cheatsheet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    
+  
+   
+   
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/components/prism-javascript.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/prism.min.js"></script>
+
+<link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.css" rel="stylesheet">
+<link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism-coy.min.css" rel="stylesheet">
+
+    <style>
+pre {
+  border-left: none !important;
+  box-shadow: none !important;
+}
+pre[class*=language-]:after, pre[class*=language-]:before {
+  display: none;
+}
+pre.inline {
+  display: inline; 
+  padding: 0px;
+}
+</style>
+
+  
+  
+  <div class="content">
+    <div class="main-column pull-left" style="margin-top: 30px;">
+
+      
+        <div class="document">
+            <div class="documentwrapper"><div class="bodywrapper">
+              <div class="body" style="
+    margin-top: 0px;
+">
+                   
+                
+                
+   
+                
+                  <div style="margin-top: 0px;" class="section" id="">
+
+<h1>Red Hat Mobile Cheat Sheet</h1>
+
+<div class="section" id="command-line-options">
+<h2>The Basics</h2>
+<p>The Red Hat Mobile Application Platform (<abbr title="Red Hat Mobile Application Platform">RHMAP</abbr> herein) categorises artifacts in the following tree structure:</p>
+<pre>
+<strong>Projects</strong>
+ |---<strong>Client Apps: </strong>Anything which will be deployed on a mobile phone device
+ |---<strong>Cloud Apps: </strong>Node.js microservices used for all logic specific to this project. 
+<strong>Services & APIs: </strong>Re-usable node.js microservices to be used by multiple projects.
+<strong>Drag & Drop Apps (D&D herein): </strong>Forms-based rapid mobile app development functionality
+|---<strong>Forms: </strong>Develop forms with no coding needed. Forms get associated projects.
+|---<strong>Themes: </strong>Style D&D forms with an interactive theme builder. Themes get associated with projects.
+</pre>
+<img style="width: 100%;" src="diagram.png" alt="RHMAP diagram">
+
+<h2>Comparing Client Apps, Cloud Apps & Services</h2>
+
+<table border="1" class="docutils">
+<colgroup>
+  <col width="10%">
+  <col width="30%">
+  <col width="30%">
+  <col width="30%">
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd">
+  <th class="head"></th>
+  <th class="head"><h3>Client App</h3></th>
+  <th class="head"><h3>Cloud App</h3></th>
+  <th class="head"><h3>mBaaS Service</h3></th>
+</tr>
+</thead>
+<tbody valign="top">
+  <tr class="row-odd">
+    <td></td>
+    <td><img style="width: 100%;" src="./client.png" alt="Client Apps"></td>
+    <td><img style="width: 100%;" src="./cloud.png" alt="Client Apps"></td>
+    <td><img style="width: 100%;" src="./svc.png" alt="Client Apps"></td>
+  </tr>
+  <tr class="row-odd">
+    <td><strong>Purpose</strong></td>
+    <td>Building mobile phone apps</td>
+    <td>Project-specific serverside logic & APIs</td>
+    <td>Creating re-usable integrations for projects to consume</td>
+  </tr>
+  <tr class="row-even">
+    <td><strong>Programming language</strong></td>
+    <td>Various<br /> <small>(JS, ObjC, Java, Swift, ...)</small></td>
+    <td>Node.js</td>
+    <td>Node.js</td>
+  </tr>
+  <tr class="row-odd">
+    <td><strong>Runs on</strong></td>
+    <td>Mobile phones</td>
+    <td>Server side</td>
+    <td>Server side</td>
+  </tr>
+  <tr class="row-even">
+    <td><strong>Project specific?</strong></td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>No<br /><small>Re-usable across projects</small></td>
+  </tr>
+  <tr class="row-odd">
+    <td><strong>Storage</strong></td>
+    <td><ul><li>HTML5 LocalStorage</li> <li>Cordova storage plugins</li><li>Core Data (iOS)</li><li>SQLite (Android)</li><li>..more</li></ul></td>
+    <td><ul><li>MongoDB</li> <li>Redis</li></ul></td>
+    <td><ul><li>MongoDB</li> <li>Redis</li><li>Integrate with external databases</li></ul></td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="command-helpers">
+<span id="id1"></span><h1>Client SDKs & APIs</h1>
+<img src="clientsdks.png"  style="width: 100%;" alt="Client SDKs">
+<p>A client SDK exists for most major mobile platforms. 
+  
+  <table border="1" class="docutils">
+  <colgroup>
+    <col width="20%">
+    <col width="20%">
+    <col width="20%">
+    <col width="20%">
+    <col width="20%">
+  </colgroup>
+  <thead valign="bottom">
+  <tr class="row-odd">
+    <th class="head"></th>
+    <th class="head">Javascript</th>
+    <th class="head">Android</th>
+    <th class="head">iOS</th>
+    <th class="head">.net</th>
+  </tr>
+  </thead>
+  <tbody valign="top">
+    <tr class="row-odd">
+      <td><strong></strong></td>
+      <td><small>Cordova, Appcelerator & other web</small></td>
+      <td><small></small></td>
+      <td><small>Objective C &amp; Swift</small></td>
+      <td><small>Windows Phone, Xamarin</small></td>
+    </tr>
+    <tr class="row-odd">
+      <td><strong>Build farm support</strong></td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>No</td>
+    </tr>
+    <tr class="row-even">
+      <td><strong>Dependency system</strong></td>
+      <td>NPM<br /><small>(Usage optional)</small></td>
+      <td>Gradle<br /><small>(Usage optional)</small></td>
+      <td>Coccoapods<br /><small>(Usage optional)</small></td>
+      <td></td>
+    </tr>
+    <tr class="row-odd">
+      <td><strong>Auto-init</strong></td>
+      <td>Yes</td>
+      <td style="background: #fafafa; text-align: center;" colspan=3>No <small>(Call $fh.init manually)</small></td>
+      
+    </tr>
+    <tr class="row-even">
+      <td><strong>Config file</strong></td>
+      <td><pre><small>
+www
+ |--fhconfig.json
+      </small></pre></td>
+      <td><pre><small>
+$PROJECT
+ |--fhconfig.plist
+      </small></pre></td>
+      <td><pre><small>
+assets
+ |--fhconfig.properties
+      </small></pre></td>
+      <td><pre><small>
+$PROJECT
+ |--$PROJECT.Shared
+     |--fhconfig.json
+      </small></pre></td>
+    </tr>
+    <tr class="row-odd">
+      <th colspan="5">
+        <h3>Available APIs</h3>
+      </th>
+    </tr>
+    <tr class="row-even">
+      <td><strong>$fh.init</strong><br /><small>Initialise the SDK</small></td>
+      <td>Yes<br /><small>(But happens automatically)</small></td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr class="row-odd">
+      <td><strong>$fh.sync</strong></td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr class="row-even">
+      <td><strong>$fh.cloud</strong><br /><small>Call a cloud app</small></td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr class="row-odd">
+      <td><strong>$fh.push</strong><br /><small>Register &amp; respond to push notifications</small></td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr class="row-even">
+      <td><strong>$fh.sec</strong></td>
+      <td>Yes</td>
+      <td style="background: #fafafa; text-align: center;" colspan=3>No <small>(Native alternatives exist)</small></td>
+    </tr>
+    <tr class="row-odd">
+      <td><strong>$fh.hash</strong></td>
+      <td>Yes</td>
+      <td style="background: #fafafa; text-align: center;" colspan=3>No <small>(Native alternatives exist)</small></td>
+    </tr>
+    <tr class="row-even">
+      <td><strong>$fh.forms</strong></td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>No</td>
+      <td>No</td>
+    </tr>
+    <tr class="row-odd">
+      <td><strong>$fh.auth</strong></td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+  </table>
+</p>
+</div>
+<div class="section" id="command-helpers">
+<span id="id1"></span><h2>JavaScript Client SDK</h2>
+<img src="jssdk.png"  style="width: 100%;" alt="Client JS SDK">
+<p>Here are the 3 most frequently used JavaScript client SDKs.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%">
+<col width="90%">
+</colgroup>
+  <thead valign="bottom">
+    <tr class="row-odd">
+      <th class="head">Function</th>
+      <th class="head">Code snippet</th>
+    </tr>
+  </thead>
+<tbody valign="top">
+  <tr class="row-odd">
+    <td><tt class="docutils literal">$fh.cloud</tt></td>
+    <td>
+<pre><code class="language-javascript">
+$fh.cloud({
+  path: "/somePath",
+  method: "POST|GET|PUT|DELETE", // optional - default GET
+  contentType: "application/json", // optional - default shown
+  data: { "username": "testuser"}, // optional - request body
+  timeout: 60000 // optional - default shown
+}, function(res) {
+  // Success - your response will be in the "res" variable
+}, function(msg,err) {
+  // Failure
+});
+</code></pre>
+    </td>
+  </tr>
+  <tr class="row-odd">
+    <td><tt class="docutils literal">$fh.push</tt></td>
+    <td>Remember to first set <pre class="inline">one</pre>, <pre class="inline">two</pre>, <pre class="inline">three</pre> in <pre class="inline">fhconfig.json</pre>.
+<pre><code class="language-javascript">
+  // Registers the app for push notifications.
+  $fh.push(function(e) {
+      // your push message will be in `e.alert`
+  }, function() {
+    // successfully registered
+  }, function(err) {
+    // handle errors
+  }, { // this next param is optional!
+    alias: "user@example.com", // register the device with a unique user identifier. Allows pushing to single users
+    categories: ["Curling", "Hurling"] // filter only certain categories of message to receive
+  });
+
+</code></pre>
+    </td>
+  </tr>
+  <tr class="row-odd">
+    <td><tt class="docutils literal">$fh.sync</tt></td>
+    <td>
+      Initialise the sync service - call this first. 
+<pre><code class="language-javascript">
+$fh.sync.init({
+  "sync_frequency": 10, // How often to check for new data in seconds (default shown).
+  // .. many more options available
+});
+
+</code></pre>
+Then, tell the sync service what dataset(s) to manage. Here, we're registering a dataset called <pre class="inline">shopping</pre>. The Options, Query Params and Metadata can just be empty objects <pre class="inline">{}</pre>, but they need to be provided in order.
+<pre><code class="language-javascript">
+// Manage a dataset called `shopping`
+// Options can be provided to override what was provided at init time
+// Query params can be provided which get passed to the server, to filter the dataset retrieved. 
+// Metadata about this dataset can also be provided, which also gets passed to the serverside. 
+$fh.sync.manage('shopping', {/*options*/}, {/*query params*/}, {/* metadata */}, function(){
+  // we've registered successfully
+});
+</code></pre>
+Now that we've registered a dataset, we need to listen to sync events. It's here we'll trigger UI updates to reflect our changes.
+<pre><code class="language-javascript">
+$fh.sync.notify(function(event) {
+  var dataset_id = event.dataset_id; // if you are managing multiple datasets, it'll be useful to know which this event relates to
+  // The notification message code we are responding to
+  switch(event.code){
+    case 'sync_complete':
+    case 'local_update_applied':
+      // at this point, it might make sense to do a list operation to update the UI using $fh.sync.doList (see below)
+    case 'remote_update_failed':
+      // There was an issue updating on the serverside - handle the error in event.message
+    default:
+      // there many other notification codes: client_storage_failed, sync_started, offline_update, collision_detected, remote_update_applied,
+      // local_update_applied, delta_received, record_delta_received, sync_failed
+  }
+});
+</code></pre>
+Now that we know what events are important to trigger UI update events, let's see what a list operation looks like. This operation does not always trigger a serverside call, so can return very fast with data from the local store. Let's do a list operation on our shopping list dataset. 
+<pre><code class="language-javascript">
+$fh.sync.doList('shopping', function(res) {
+  /* where res will be
+  {
+    '1234' : { // where 1234 is the UID of the record
+      hash : '1bd55262212c4ec2ac6ef20d8c8b03b3', // an MD5 hash of the record
+      data : { name : "Oranges" } // the actual record data
+    },
+    // ... and potentially more records
+  }
+  */
+});
+</code></pre>
+We can also create records in our shopping dataset. 
+<pre><code class="language-javascript">
+$fh.sync.doCreate('shopping', { name : "Tomatoes" }, function(res) {
+  // create was successful
+});
+</code></pre>
+Update, read and delete operations are similar, we just need to provide a record UID after the dataset name:
+<pre><code class="language-javascript">
+$fh.sync.doUpdate('shopping', 1234, {name : "Grapes"}, function(){/*success*/});
+$fh.sync.doRead('shopping', 1234, function(){/*success*/});
+$fh.sync.doDelete('shopping', 1234, function(){/*success*/});
+</code></pre>
+    </td>
+  </tr>
+
+</tbody>
+</table>
+</div>
+<div class="section" id="command-helpers">
+<span id="id1"></span><h2>Node.js Cloud & mBaaS Service SDK</h2>
+<img src="cloudservicessdk.png" style="width: 100%;" alt="Client JS SDK">
+The Node.js SDK is published to NPM as fh-mbaas-api. You can include it in your apps by doing <br />
+<pre class="inline">var $fh = require('fh-mbaas-api');</pre><br />
+These calls will work in both Cloud Apps and mBaaS Services.
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%">
+<col width="90%">
+</colgroup>
+  <thead valign="bottom">
+    <tr class="row-odd">
+      <th class="head">Function</th>
+      <th class="head">Code snippet</th>
+    </tr>
+  </thead>
+<tbody valign="top">
+  <tr class="row-even">
+    <td><tt class="docutils literal">$fh.service</tt></td>
+    <td>
+      Call another mBaaS Service. Can be used to call cloudapp-to-service, or service-to-service.
+<pre><code class="language-javascript">
+  $fh.service({
+    "guid" : "0123456789abcdef01234567", // The 24 character unique id of the service
+    "path": "/hello", //the path part of the url excluding the hostname - this will be added automatically
+    "method": "POST",   //all other HTTP methods are supported as well. for example, HEAD, DELETE, OPTIONS
+    "params": { "hello": "world" }, // request params
+    "timeout": 60000, // optional timeout - default shown
+    "headers" : {} // optional request headers
+  }, function(err, body, res) {
+    // check err for an error condition - otherwise, the response is in 'body'
+  });
+</code></pre>
+    </td>
+  </tr>
+  <tr class="row-odd">
+    <td><tt class="docutils literal">$fh.cache</tt></td>
+    <td>
+      Cache data in the redis key-value store. 
+<pre><code class="language-javascript">
+  var myFavourite = { type : "apples" }; // note JSON values need to be stringified before saving
+  $fh.cache({
+    act : "save", key : "favouriteFruit", value : JSON.stringify(myFavourite), expire : 60
+  }, function(err, res){
+    // check for err - otherwise cache save succeeded.
+  });
+  // then read back your value
+  $fh.cache({
+    act : "load", key : "favouriteFruit"
+  }, function(err, res){
+    console.log(JSON.parse(res));
+    // res will be { type : "apples " }
+  });
+  
+</code></pre>
+    </td>
+  </tr>
+  <tr class="row-odd">
+    <td><tt class="docutils literal">$fh.db</tt></td>
+    <td>
+      Store data in the platform MongoDB. <br />
+      <small>You can also use the MongoDB Node.js Driver directly, but depending on your version of the platform, you may need to <a href="https://access.redhat.com/documentation/en/red-hat-mobile-application-platform-hosted/3/paged/server-side-developer-guide/chapter-4-storing-data#upgrading-the-database">"upgrade" your database</a>.</small>
+<pre><code class="language-javascript">
+  $fh.db({
+    act : "create", type : "fruit", fields : { name : "apples", price : 10.99 }
+  }, function(err, data){ /* check for err - otherwise save succeeded. `data.guid` is the newly created id. */ );
+  // now read back an item
+  $fh.db({
+    act : "read", type : "fruit", guid : "4e563ea44fe8e7fc19000002"
+  }, function(err, data){
+    /* Data will be:
+    {
+      fields : { name : "apples", price : 10.99 },
+      guid : "4e563ea44fe8e7fc19000002",
+      type : "fruit"
+    } */
+  });
+  // list all fruit
+  $fh.db({
+    act : "list", type : "fruit"
+  }, function(err, listResult){ /* listResult.fields contains an array of data like in the "create" example */ });
+  // now update the price
+  $fh.db({
+    act : "update", type : "fruit", guid : "4e563ea44fe8e7fc19000002", fields : { price : 11.99 } // only the price will change
+  }, function(err, updateResult){ /* updateResult is like the "create" example above */ });
+  // then delete the row
+  $fh.db({
+    act : "delete", type : "fruit", guid : "4e563ea44fe8e7fc19000002"
+  }, function(err, deletedEntry){ /* deletedEntry is like the "create" example above */ });
+  
+</code></pre>
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</div>
+              </div></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="clearfix"></div>
+  </div>
+  
+
+<table cellspacing="0" cellpadding="0" class="gstl_50 gssb_c" style="width: 65px; display: none; top: 56px; position: absolute; left: 1110px;"><tbody><tr><td class="gssb_f"></td><td class="gssb_e" style="width: 100%;"></td></tr></tbody></table>
+
+
+
+</body></html>
