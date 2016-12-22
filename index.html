@@ -50,11 +50,11 @@ pre.inline {
 
 <div class="section" id="command-line-options">
 <h2>The Basics</h2>
-<p>The Red Hat Mobile Application Platform (<abbr title="Red Hat Mobile Application Platform">RHMAP</abbr> herein) categorises artifacts in the following tree structure:</p>
+<p>The Red Hat Mobile Application Platform is a platform for building, deploying and managing mobile applications &amp; their backend integrations. It supports flexible development models, and allows developers to use tooling of their choice. Source code is integrated using Git, and the platform is agnostic to client-side mobile technology stack. The platform categorises its features in the following structure:</p>
 <pre>
 <strong>Projects</strong>
  |---<strong>Client Apps: </strong>Anything which will be deployed on a mobile phone device
- |---<strong>Cloud Apps: </strong>Node.js microservices used for all logic specific to this project. 
+ |---<strong>Cloud Apps: </strong>Node.js microservices used for all server-side logic specific to this project. 
 <strong>Services & APIs: </strong>Re-usable node.js microservices to be used by multiple projects.
 <strong>Drag & Drop Apps (D&D herein): </strong>Forms-based rapid mobile app development functionality
 |---<strong>Forms: </strong>Develop forms with no coding needed. Forms get associated projects.
@@ -120,9 +120,13 @@ pre.inline {
 </table>
 </div>
 <div class="section" id="command-helpers">
-<span id="id1"></span><h1>Client SDKs & APIs</h1>
+ <h1>Client SDKs & APIs</h1>
 <img src="clientsdks.png"  style="width: 100%;" alt="Client SDKs">
-<p>A client SDK exists for most major mobile platforms. 
+<p>The client SDK is used to build logic which runs on the mobile phone device. Typically, developers will build user interface manipulation on the client device, and use the $fh.cloud SDK 
+  to integrate with the server-side logic they have built.
+  
+  <h2>Client SDKs available</h2>
+  <p>Here's a quick description of the different supported client-side technologies, along with the tooling developers can expect to use with each.
   
   <table border="1" class="docutils">
   <colgroup>
@@ -138,16 +142,16 @@ pre.inline {
     <th class="head">Javascript</th>
     <th class="head">Android</th>
     <th class="head">iOS</th>
-    <th class="head">.net</th>
+    <th class="head">.NET</th>
   </tr>
   </thead>
   <tbody valign="top">
     <tr class="row-odd">
-      <td><strong></strong></td>
-      <td><small>Cordova, Appcelerator & other web</small></td>
-      <td><small></small></td>
+      <td><strong>Technology/Language</strong></td>
+      <td><small>Apache Cordova, Appcelerator & other web</small></td>
+      <td><small>Java</small></td>
       <td><small>Objective C &amp; Swift</small></td>
-      <td><small>Windows Phone, Xamarin</small></td>
+      <td><small>.net, Xamarin</small></td>
     </tr>
     <tr class="row-odd">
       <td><strong>Build farm support</strong></td>
@@ -160,17 +164,16 @@ pre.inline {
       <td><strong>Dependency system</strong></td>
       <td>NPM<br /><small>(Usage optional)</small></td>
       <td>Gradle<br /><small>(Usage optional)</small></td>
-      <td>Coccoapods<br /><small>(Usage optional)</small></td>
+      <td>CocoaPods<br /><small>(Usage optional)</small></td>
       <td></td>
     </tr>
     <tr class="row-odd">
-      <td><strong>Auto-init</strong></td>
+      <td><strong>Auto-init</strong><br /><small>Does the SDK initialize itself automatically?</small></td>
       <td>Yes</td>
       <td style="background: #fafafa; text-align: center;" colspan=3>No <small>(Call $fh.init manually)</small></td>
-      
     </tr>
     <tr class="row-even">
-      <td><strong>Config file</strong></td>
+      <td><strong>Config file</strong><br /><small>Each SDK needs this file to tell it how to initalise</small></td>
       <td><pre><small>
 www
  |--fhconfig.json
@@ -190,12 +193,20 @@ $PROJECT
       </small></pre></td>
     </tr>
     <tr class="row-odd">
-      <th colspan="5">
+      <th colspan="5" style="text-align: left;">
         <h3>Available APIs</h3>
+        <p>What APIs are available on what platforms?</p>
       </th>
     </tr>
     <tr class="row-even">
-      <td><strong>$fh.init</strong><br /><small>Initialise the SDK</small></td>
+      <td><strong>$fh.cloud</strong><br /><small>Call a cloud app & execute server-side logic</small></td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr class="row-even">
+      <td><strong>$fh.init</strong><br /><small>initialize the SDK</small></td>
       <td>Yes<br /><small>(But happens automatically)</small></td>
       <td>Yes</td>
       <td>Yes</td>
@@ -208,15 +219,16 @@ $PROJECT
       <td>Yes</td>
       <td>Yes</td>
     </tr>
-    <tr class="row-even">
-      <td><strong>$fh.cloud</strong><br /><small>Call a cloud app</small></td>
+    
+    <tr class="row-odd">
+      <td><strong>$fh.push</strong><br /><small>Register &amp; receive device-level push notifications</small></td>
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
     </tr>
     <tr class="row-odd">
-      <td><strong>$fh.push</strong><br /><small>Register &amp; respond to push notifications</small></td>
+      <td><strong>$fh.auth</strong></td>
       <td>Yes</td>
       <td>Yes</td>
       <td>Yes</td>
@@ -239,21 +251,14 @@ $PROJECT
       <td>No</td>
       <td>No</td>
     </tr>
-    <tr class="row-odd">
-      <td><strong>$fh.auth</strong></td>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>Yes</td>
-      <td>Yes</td>
-    </tr>
   </tbody>
   </table>
 </p>
 </div>
 <div class="section" id="command-helpers">
-<span id="id1"></span><h2>JavaScript Client SDK</h2>
+ <h2>JavaScript Client SDK</h2>
 <img src="jssdk.png"  style="width: 100%;" alt="Client JS SDK">
-<p>Here are the 3 most frequently used JavaScript client SDKs.</p>
+<p>Here are some of the most frequently used JavaScript client SDKs. The full list is available, along with examples for other client technologies (Java, Swift, etc) by reading the <a href="https://access.redhat.com/documentation/en/red-hat-mobile-application-platform-hosted/3/paged/client-api/">client API documentation</a></p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%">
@@ -306,7 +311,7 @@ $fh.cloud({
   <tr class="row-odd">
     <td><tt class="docutils literal">$fh.sync</tt></td>
     <td>
-      Initialise the sync service - call this first. 
+      initialize the sync service - call this first. 
 <pre><code class="language-javascript">
 $fh.sync.init({
   "sync_frequency": 10, // How often to check for new data in seconds (default shown).
@@ -369,16 +374,42 @@ $fh.sync.doDelete('shopping', 1234, function(){/*success*/});
 </code></pre>
     </td>
   </tr>
-
+  <tr class="row-odd">
+    <td><tt class="docutils literal">$fh.auth</tt></td>
+    <td>Remember to first set <pre class="inline">one</pre>, <pre class="inline">two</pre>, <pre class="inline">three</pre> in <pre class="inline">fhconfig.json</pre>.
+  <pre><code class="language-javascript">
+  // Registers the app for push notifications.
+  JavaScript
+  // LDAP or Platform User Example
+  $fh.auth({
+    "policyId": "myLDAP", // UD of an auth policy configured in Admin->Auth Policies
+    "clientToken": "yourAppId", // get this by doing $fh.getFHParams().appid
+    // When using with Platform or LDAP login:
+    "params": { // the parameters associated with the requested auth policy
+      "userId": "joe@bloggs.com",
+      "password": "password"
+    }
+  }, function (res) {
+    var sessionToken = res.sessionToken; // An identifier for this session
+    var authResponse = res.authResponse; // Auth info returned from the auth service - if any
+  }, function (msg, err) {
+    // something as gone wrong. If err.message === "user_purge_data" or "device_purge_data",
+    // the user has been flagged for erasing
+  });
+  </code></pre>
+    </td>
+  </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="command-helpers">
-<span id="id1"></span><h2>Node.js Cloud & mBaaS Service SDK</h2>
+ <h2>Node.js Cloud & mBaaS Service SDK</h2>
 <img src="cloudservicessdk.png" style="width: 100%;" alt="Client JS SDK">
-The Node.js SDK is published to NPM as fh-mbaas-api. You can include it in your apps by doing <br />
+As we mentioned above, the cloud application is used for server-side business logic specific to a project. <br />
+The mBaaS Services are re-usable components which these Cloud Apps talk to. Both are written using a server-side JavaScript technology called Node.js. 
+The Node.js SDK is published to NPM (Node's dependency management solution) as fh-mbaas-api. You can include it in your cloud apps &amp; mBaaS Services by doing the following:<br />
 <pre class="inline">var $fh = require('fh-mbaas-api');</pre><br />
-These calls will work in both Cloud Apps and mBaaS Services.
+<p>Some of the most common Cloud API calls follow, but you can see the full list by visiting our <a href="https://access.redhat.com/documentation/en/red-hat-mobile-application-platform-hosted/3/paged/cloud-api">Cloud API documentation.</a></p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="10%">
